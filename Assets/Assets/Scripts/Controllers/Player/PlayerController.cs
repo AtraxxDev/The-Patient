@@ -1,5 +1,7 @@
+using Game;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class PlayerController : MonoBehaviour
     private PlayerInteraction playerInteraction;
     [SerializeField]
     private PlayerCamera playerCamera;
+    [SerializeField]
+    NoiseMaker noiseMaker;
 
     [Header("Configuración Global")]
     public bool enableMovement = true;
@@ -41,6 +45,15 @@ public class PlayerController : MonoBehaviour
     {
         if (enableMovement && playerMovement != null)
             playerMovement.SetMoveInput(value.Get<Vector2>());
+
+        noiseMaker.MakeNoise(new NoiseInfo
+        {
+            position = this.transform.position,
+            Radius = 10f,
+            type = NoiseType.Common
+            
+        });
+        
     }
 
     public void OnInteract(InputValue value)
@@ -53,6 +66,19 @@ public class PlayerController : MonoBehaviour
     {
         if (enableMouseControl && playerCamera != null)
             playerCamera.HandleLook(value.Get<Vector2>()); // pasa input al módulo de la cámara
+    }
+
+
+    //Da un aviso para que pueda hacer ruido
+    public void OnMakeNoise(InputValue value)
+    {
+        noiseMaker.MakeNoise(new NoiseInfo
+        {
+            position = this.transform.position,
+            Radius = 10f,
+            type = NoiseType.Common
+
+        });
     }
 
     // ======== Métodos públicos para habilitar módulos ========

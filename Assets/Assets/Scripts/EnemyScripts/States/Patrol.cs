@@ -60,6 +60,8 @@ public class Patrol : State
             stage = EVENT.EXIT;
         }
 
+        UpdateHearing();
+
     }
 
     private void WaitForSecondsRealtime(float v)

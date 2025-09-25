@@ -1,3 +1,5 @@
+using Game;
+
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,7 +13,7 @@ public class AIBaseEnemy : MonoBehaviour
     [SerializeField] AudioClip[] _audioClip; //Clip1 es audio de perseguir, Clip 2 de ataque
     //[SerializeField] AudioClip attackClip;
 
-   // [SerializeField] private bool 
+    
 
     private void Start()
     {
@@ -25,6 +27,8 @@ public class AIBaseEnemy : MonoBehaviour
     {
         currentState = currentState.Process();
     }
+
+    
 
     public AudioClip GetAudio(int i)
     {
