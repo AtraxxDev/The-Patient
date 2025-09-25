@@ -21,7 +21,7 @@ public class Idle : State
             nextState = new PursueState(npc, agent, anim, player);
             stage = EVENT.EXIT;
         }
-        else if (Random.Range(0, 10000) < 10)
+        else if (Random.Range(0, 1000) < 10)
         {
             nextState = new Patrol(npc, agent, anim, player);
             stage = EVENT.EXIT;

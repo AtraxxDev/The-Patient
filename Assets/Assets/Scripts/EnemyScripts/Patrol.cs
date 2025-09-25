@@ -1,8 +1,10 @@
+
 using UnityEngine;
 
 public class Patrol : State
 {
     int currentIndex = -1;
+
 
     public Patrol(GameObject _npc, UnityEngine.AI.NavMeshAgent _agent, Animator _anim, Transform _player) :
         base(_npc, _agent, _anim, _player)
@@ -34,12 +36,16 @@ public class Patrol : State
 
         if (agent.remainingDistance < 1)
         {
-            if (currentIndex >= CheckCheckpoints.Singleton.CheckpointsObjects.Count - 1)
-                currentIndex = 0;
-            else
-                currentIndex++;
+            if(Random.Range(0, 100) < 10)
+            {
+                if (currentIndex >= CheckCheckpoints.Singleton.CheckpointsObjects.Count - 1)
+                    currentIndex = 0;
+                else
+                    currentIndex++;
 
-            agent.SetDestination(CheckCheckpoints.Singleton.CheckpointsObjects[currentIndex].transform.position);
+                agent.SetDestination(CheckCheckpoints.Singleton.CheckpointsObjects[currentIndex].transform.position);
+            }
+            
         }
 
         if (CanSeePlayer())
@@ -54,6 +60,11 @@ public class Patrol : State
             stage = EVENT.EXIT;
         }
 
+    }
+
+    private void WaitForSecondsRealtime(float v)
+    {
+        return;
     }
 
     public override void Exit()

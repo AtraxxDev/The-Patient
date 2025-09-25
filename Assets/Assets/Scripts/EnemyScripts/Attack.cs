@@ -4,19 +4,22 @@ using UnityEngine.AI;
 public class Attack : State
 {
     float rotationSpeed = 2.0f;
-    AudioSource shoot;
+    AudioSource attackScream;
+    
     public Attack(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player) :
         base(_npc, _agent, _anim, _player)
     {
         name = STATE.ATTACK;
-        shoot = _npc.GetComponent<AudioSource>();
+        attackScream = _npc.GetComponent<AudioSource>();
     }
 
     public override void Enter()
     {
         //anim.SetTrigger("isShooting");
+        AudioClip attackClip= npc.GetComponent<AIBaseEnemy>().GetAudio(0);
         agent.isStopped = true;
-        shoot.Play();
+        attackScream.clip = attackClip;
+        attackScream.Play();
         base.Enter();
     }
 
@@ -39,7 +42,7 @@ public class Attack : State
     public override void Exit()
     {
         //anim.ResetTrigger("isShooting");
-        shoot.Stop();
+        attackScream.Stop();
         base.Exit();
     }
 }

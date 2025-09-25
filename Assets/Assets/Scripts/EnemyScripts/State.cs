@@ -25,9 +25,9 @@ public class State
 
     float visDist = 10.0f;
     float sisDist = 3.0f;
-    float visAngle = 30.0f;
+    float visAngle = 45.0f;
     float sisAngle = 120.0f;
-    float shootDist = 7.0f;
+    float attackDist = 2.0f;
 
     public State(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player)
     {
@@ -71,7 +71,7 @@ public class State
     public bool CanAttackPlayer()
     {
         Vector3 direction = player.position - npc.transform.position;
-        if (direction.magnitude < shootDist)
+        if (direction.magnitude < attackDist)
         {
             return true;
         }

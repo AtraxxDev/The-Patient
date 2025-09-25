@@ -8,6 +8,11 @@ public class AIBaseEnemy : MonoBehaviour
     public Transform player;
     State currentState;
 
+    [SerializeField] AudioClip[] _audioClip; //Clip1 es audio de perseguir, Clip 2 de ataque
+    //[SerializeField] AudioClip attackClip;
+
+   // [SerializeField] private bool 
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -19,5 +24,10 @@ public class AIBaseEnemy : MonoBehaviour
     private void Update()
     {
         currentState = currentState.Process();
+    }
+
+    public AudioClip GetAudio(int i)
+    {
+        return _audioClip[i];
     }
 }
