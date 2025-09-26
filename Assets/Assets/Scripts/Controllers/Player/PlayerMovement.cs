@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public Transform cameraTransform;
 
-
     private Rigidbody rb;
     private Vector2 moveInput;
 
@@ -24,6 +23,11 @@ public class PlayerMovement : MonoBehaviour
     public void SetMoveInput(Vector2 input)
     {
         moveInput = input;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        moveSpeed = speed; // permite cambiar velocidad desde otro script
     }
 
     private void Move()

@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private PlayerInteraction playerInteraction;
     [SerializeField]
+    private PlayerCrouch playerCrouch;
+    [SerializeField]
     private PlayerCamera playerCamera;
 
     [Header("Configuración Global")]
@@ -41,6 +43,11 @@ public class PlayerController : MonoBehaviour
     {
         if (enableMovement && playerMovement != null)
             playerMovement.SetMoveInput(value.Get<Vector2>());
+    }
+
+    public void OnCrouch(InputValue value)
+    {
+        playerCrouch.ToggleCrouch();
     }
 
     public void OnInteract(InputValue value)
