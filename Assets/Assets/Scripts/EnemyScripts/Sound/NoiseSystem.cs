@@ -11,20 +11,23 @@ namespace Game
 
         public static NoiseSystem Instance { get; private set; }
 
+        void Awake()
+        {
+            Instance = this;
+        }
+
+       
         public void MakeNoise(NoiseInfo noise)
         {
             var colliders = Physics.OverlapSphere(noise.position, noise.Radius, CharactersLayers, QueryTriggerInteraction.Ignore);
 
             foreach( var collider in colliders)
             {
-                NoiseListenerInferface listener = collider.GetComponentInParent<NoiseListenerInferface>();
+                INoiseListener listener = collider.GetComponentInParent<INoiseListener>();
                 listener?.OnNoiseHeard(noise);
             }
         }
-        void Awake()
-        {
-            Instance = this;
-        }
+
     }
 
    

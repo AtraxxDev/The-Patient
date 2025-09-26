@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public interface NoiseListenerInferface
+    public interface INoiseListener
     {
         void OnNoiseHeard(NoiseInfo noise);
     }

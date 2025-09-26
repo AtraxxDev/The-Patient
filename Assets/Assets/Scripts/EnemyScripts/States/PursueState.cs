@@ -17,8 +17,9 @@ public class PursueState:State
     public override void Enter()
     {
         // anim.SetTrigger("isRunning");
-        AudioClip attackClip = npc.GetComponent<AIBaseEnemy>().GetAudio(0);
+        npc.GetComponent<NPCSenses>();
 
+        AudioClip attackClip = npc.GetComponent<AIBaseEnemy>().GetAudio(0);        
         pursueScream.clip = attackClip;
         pursueScream.Play();
         base.Enter();
@@ -36,7 +37,7 @@ public class PursueState:State
             }
             else if (!CanSeePlayer())
             {
-                nextState = new Patrol(npc, agent, anim, player);
+                nextState = new InvestigateSoundState(npc, agent, anim, player);
                 stage = EVENT.EXIT;
             }
         }

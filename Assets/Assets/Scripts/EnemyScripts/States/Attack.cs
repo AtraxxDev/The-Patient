@@ -16,7 +16,7 @@ public class Attack : State
     public override void Enter()
     {
         //anim.SetTrigger("isShooting");
-        AudioClip attackClip= npc.GetComponent<AIBaseEnemy>().GetAudio(0);
+        AudioClip attackClip= npc.GetComponent<AIBaseEnemy>().GetAudio(1);
         agent.isStopped = true;
         attackScream.clip = attackClip;
         attackScream.Play();

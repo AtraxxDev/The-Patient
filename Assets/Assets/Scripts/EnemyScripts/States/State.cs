@@ -8,7 +8,7 @@ public class State
     //Defino que estados van a existir en el enum
     public enum STATE
     {
-        IDLE, PATROL, PURSUE, ATTACK, SLEEP, SCARED
+        IDLE, PATROL, PURSUE, ATTACK, SLEEP, SCARED,INVESTIGATESOUND
     };
 
     //Cada estado debe de tener una manera de entrar, lo que va a pasar y una manera de salir
@@ -29,21 +29,8 @@ public class State
     float sisDist = 3.0f;
     float visAngle = 45.0f;
     float sisAngle = 120.0f;
-    float attackDist = 2.0f;
+    float attackDist = 5.0f;
 
-
-    public bool NoiseHeard { get; private set; } = false;
-
-    public Vector3 NoisePosition { get; private set; }
-    public NoiseType NoiseType { get; private set; } = NoiseType.Common;
-
-    public float NoiseTime { get; private set; } = 0f;
-    public float TimeSinceHeardNoise => Time.time - NoiseTime;
-    public float EntryExpirationTime = 1.5f;
-
-    [Header("Hearing")]
-    [SerializeField, Multiline] string hearingDebug = "";
-    [SerializeField] Color noisedGizmosColor = Color.magenta;
 
     public State(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player)
     {
@@ -106,50 +93,6 @@ public class State
         return false;
     }
 
-    public void OnNoiseHeard(NoiseInfo noise)
-    {
-        if (noise.owner == npc)
-        {
-            return;
-        }
-        NoiseHeard = true;
-        NoiseTime = Time.time;
-        NoiseType = noise.type;
-
-        if (NavMesh.SamplePosition(noise.position, out NavMeshHit hit, 4f, NavMesh.AllAreas))
-        {
-            NoisePosition = hit.position;
-           
-        }
-        else
-        {
-            NoisePosition = noise.position;
-           
-        }
-    }
-
-    public void ForgetNoise()
-    {
-        NoiseHeard = false;
-    }
-
-    public void UpdateHearing()
-    {
-        if (NoiseHeard == false)
-        {
-            
-            return;
-        }
-
-        hearingDebug = $"Heard Noise {Mathf.RoundToInt(TimeSinceHeardNoise)} s ago.\n\r";
-        hearingDebug += $" Type={NoiseType}";
-
-        Debug.Log("Te Escuche");
-
-        if (TimeSinceHeardNoise >= EntryExpirationTime)
-        {
-            ForgetNoise();
-        }
-    }
+   
 
 }

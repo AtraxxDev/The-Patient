@@ -1,4 +1,5 @@
 
+using Game;
 using UnityEngine;
 
 public class Patrol : State
@@ -16,6 +17,8 @@ public class Patrol : State
 
     public override void Enter()
     {
+        npc.GetComponent<NPCSenses>();
+
         float lastDistance = Mathf.Infinity;
         for (int i = 0; i < CheckCheckpoints.Singleton.CheckpointsObjects.Count; i++)
         {
@@ -27,16 +30,18 @@ public class Patrol : State
                 lastDistance = distance;
             }
         }
-       // anim.SetTrigger("isWalking");
+        // anim.SetTrigger("isWalking");
+       
         base.Enter();
     }
 
     public override void Update()
     {
+        //UpdateHearing();
 
         if (agent.remainingDistance < 1)
         {
-            if(Random.Range(0, 100) < 10)
+            if(Random.Range(0, 500) < 10)
             {
                 if (currentIndex >= CheckCheckpoints.Singleton.CheckpointsObjects.Count - 1)
                     currentIndex = 0;
@@ -60,13 +65,8 @@ public class Patrol : State
             stage = EVENT.EXIT;
         }
 
-        UpdateHearing();
+       
 
-    }
-
-    private void WaitForSecondsRealtime(float v)
-    {
-        return;
     }
 
     public override void Exit()

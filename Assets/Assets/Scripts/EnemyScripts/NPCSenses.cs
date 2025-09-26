@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NPCSenses : MonoBehaviour
+public class NPCSenses : MonoBehaviour,INoiseListener
 {
     public bool NoiseHeard { get; private set; } = false;
 
@@ -20,9 +20,18 @@ public class NPCSenses : MonoBehaviour
     [SerializeField, Multiline] string hearingDebug = "";
     [SerializeField] Color noisedGizmosColor = Color.magenta;
 
+    private void Start()
+    {
+        
+    }
+
+    private void Update()
+    {
+        UpdateHearing();
+    }
     public void OnNoiseHeard(NoiseInfo noise)
     {
-        if (noise.owner == this)
+        if (noise.owner == gameObject)
         {
             return;
         }
@@ -45,6 +54,22 @@ public class NPCSenses : MonoBehaviour
         NoiseHeard = false;
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        DrawNoiseGizmos();
+    }
+
+    void DrawNoiseGizmos()
+    {
+        if(NoiseHeard==false) {
+            return;
+        }
+        Gizmos.color = noisedGizmosColor;
+        Gizmos.DrawSphere(NoisePosition, 0.2f);
+
+
+    }
+
     void UpdateHearing()
     {
         if (NoiseHeard == false)
@@ -56,7 +81,7 @@ public class NPCSenses : MonoBehaviour
         hearingDebug = $"Heard Noise {Mathf.RoundToInt(TimeSinceHeardNoise)} s ago.\n\r";
         hearingDebug += $" Type={NoiseType}";
 
-        Debug.Log("Te Escuche");
+       // Debug.Log("Te Escuche");
 
         if (TimeSinceHeardNoise >= EntryExpirationTime)
         {

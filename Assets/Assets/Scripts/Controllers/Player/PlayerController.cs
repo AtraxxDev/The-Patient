@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         noiseMaker.MakeNoise(new NoiseInfo
         {
             position = this.transform.position,
-            Radius = 10f,
+            Radius = 15f,
             type = NoiseType.Common
             
         });

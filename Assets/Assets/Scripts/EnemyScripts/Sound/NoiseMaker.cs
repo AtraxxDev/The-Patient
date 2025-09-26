@@ -7,10 +7,8 @@ public class NoiseMaker:MonoBehaviour
     //Donde debería de poner esto?
     public void MakeNoise(NoiseInfo noiseInfo)
     {
-        noiseInfo.owner = this.gameObject;
+        noiseInfo.owner = gameObject;
 
         NoiseSystem.Instance?.MakeNoise(noiseInfo);
-
-        //Debug.Log("Haciendo Sonido");
     }
 }
