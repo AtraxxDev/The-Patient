@@ -1011,10 +1011,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2965110037285915747, guid: f5fd3a490a6c0e148b18bb3c904d3a07, type: 3}
-      propertyPath: interactableLayer.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 4205287923842333643, guid: f5fd3a490a6c0e148b18bb3c904d3a07, type: 3}
       propertyPath: m_Name
       value: Player
