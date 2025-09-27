@@ -284,7 +284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da41722ba6be2e64cb7eca9e9be9f1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  walkSpeed: 5
+  sprintMultiplier: 2
   cameraTransform: {fileID: 5775791470242186190}
 --- !u!114 &2965110037285915747
 MonoBehaviour:
@@ -301,7 +302,7 @@ MonoBehaviour:
   interactionRange: 3
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 4294967295
 --- !u!114 &5079789957525457066
 MonoBehaviour:
   m_ObjectHideFlags: 0
