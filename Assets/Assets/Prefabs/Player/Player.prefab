@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 129773566477960185}
   - component: {fileID: 2965110037285915747}
   - component: {fileID: 5079789957525457066}
+  - component: {fileID: 7187189924457276555}
   - component: {fileID: 1520273028110252370}
   m_Layer: 0
   m_Name: Player
@@ -269,6 +270,7 @@ MonoBehaviour:
   playerInteraction: {fileID: 2965110037285915747}
   playerCrouch: {fileID: 5079789957525457066}
   playerCamera: {fileID: 9036651468175648723}
+  heroineSystem: {fileID: 7187189924457276555}
   enableMovement: 1
   enableInteraction: 1
   enableMouseControl: 1
@@ -302,7 +304,7 @@ MonoBehaviour:
   interactionRange: 3
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &5079789957525457066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,6 +325,23 @@ MonoBehaviour:
   crouchSpeed: 2
   normalSpeed: 5
   crouchTransitionSpeed: 8
+--- !u!114 &7187189924457276555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4205287923842333643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3ee4d570d40204e8ffd7602c5268d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroineList:
+  - {fileID: 0}
+  - {fileID: 0}
+  amount: 0
+  corruptionPercentage: 0
 --- !u!114 &1520273028110252370
 MonoBehaviour:
   m_ObjectHideFlags: 0

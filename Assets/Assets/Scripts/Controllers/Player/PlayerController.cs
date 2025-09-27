@@ -4,14 +4,12 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Módulos")]
-    [SerializeField]
-    private PlayerMovement playerMovement;
-    [SerializeField]
-    private PlayerInteraction playerInteraction;
-    [SerializeField]
-    private PlayerCrouch playerCrouch;
-    [SerializeField]
-    private PlayerCamera playerCamera;
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerInteraction playerInteraction;
+    [SerializeField] private PlayerCrouch playerCrouch;
+    [SerializeField] private PlayerCamera playerCamera;
+    [SerializeField] private HeroineSystem heroineSystem;
+
 
     [Header("Configuración Global")]
     public bool enableMovement = true;
@@ -57,6 +55,10 @@ public class PlayerController : MonoBehaviour
         playerMovement.SetSprinting(value.isPressed);
     }
 
+    public void OnUse(InputValue value)
+    {
+        heroineSystem.UseHeroine();
+    }
 
 
 
