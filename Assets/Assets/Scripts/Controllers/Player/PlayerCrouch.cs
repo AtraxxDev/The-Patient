@@ -19,6 +19,8 @@ public class PlayerCrouch : MonoBehaviour
     private Vector3 originalCenter;
     private Vector3 originalCameraLocalPos;
 
+    public bool IsCrouching => isCrouching;
+
     void Start()
     {
         targetHeight = normalHeight;

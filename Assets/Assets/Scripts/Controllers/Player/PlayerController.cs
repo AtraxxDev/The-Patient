@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public bool enableInteraction = true;
     public bool enableMouseControl = true;
 
+
     private void Start()
     {
         playerInteraction.Initialize(playerCamera.transform);
@@ -44,6 +45,20 @@ public class PlayerController : MonoBehaviour
         if (enableMovement && playerMovement != null)
             playerMovement.SetMoveInput(value.Get<Vector2>());
     }
+
+    public void OnSprint(InputValue value)
+    {
+        // si está agachado, no puede sprintar
+        if (playerCrouch != null && playerCrouch.IsCrouching)
+        {
+            return;
+        }
+
+        playerMovement.SetSprinting(value.isPressed);
+    }
+
+
+
 
     public void OnCrouch(InputValue value)
     {
