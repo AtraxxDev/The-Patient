@@ -1,21 +1,26 @@
+using Game;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movimiento")]
-    public float moveSpeed = 5f;
-    public Transform cameraTransform;
-
+    [SerializeField] private float walkSpeed = 5f;
+    [SerializeField] private float sprintMultiplier = 2f;
+    [SerializeField] private Transform cameraTransform;
 
     private Rigidbody rb;
     private Vector2 moveInput;
+    private float currentSpeed;
 
-    void Start()
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+        currentSpeed = walkSpeed;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Move();
     }
@@ -23,6 +28,16 @@ public class PlayerMovement : MonoBehaviour
     public void SetMoveInput(Vector2 input)
     {
         moveInput = input;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        currentSpeed = speed; // usado por crouch
+    }
+
+    public void SetSprinting(bool isSprinting)
+    {
+        currentSpeed = isSprinting ? walkSpeed * sprintMultiplier : walkSpeed;
     }
 
     private void Move()
@@ -37,7 +52,10 @@ public class PlayerMovement : MonoBehaviour
         camRight.Normalize();
 
         Vector3 move = camForward * moveInput.y + camRight * moveInput.x;
+        //noiseMaker.MakeNoise(NoiseInfo);
 
-        rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + move * currentSpeed * Time.fixedDeltaTime);
     }
+
+
 }

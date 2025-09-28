@@ -1,20 +1,23 @@
+using Game;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Módulos")]
-    [SerializeField]
-    private PlayerMovement playerMovement;
-    [SerializeField]
-    private PlayerInteraction playerInteraction;
-    [SerializeField]
-    private PlayerCamera playerCamera;
+    [Header("Mï¿½dulos")]
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerInteraction playerInteraction;
+    [SerializeField] private PlayerCrouch playerCrouch;
+    [SerializeField] private PlayerCamera playerCamera;
+    [SerializeField] private HeroineSystem heroineSystem;
+    [SerializeField] private NoiseMaker noiseMaker;
 
-    [Header("Configuración Global")]
+    [Header("Configuraciï¿½n Global")]
     public bool enableMovement = true;
     public bool enableInteraction = true;
     public bool enableMouseControl = true;
+
 
     private void Start()
     {
@@ -41,6 +44,54 @@ public class PlayerController : MonoBehaviour
     {
         if (enableMovement && playerMovement != null)
             playerMovement.SetMoveInput(value.Get<Vector2>());
+
+        if(!playerCrouch)
+        noiseMaker.MakeNoise(new NoiseInfo
+        {
+            position = this.transform.position,
+            Radius = 15f,
+            type = NoiseType.Common
+            
+        });
+        
+    }
+
+    public void OnSprint(InputValue value)
+    {
+        // si estï¿½ agachado, no puede sprintar
+        if (playerCrouch != null && playerCrouch.IsCrouching)
+        {
+            return;
+        }
+
+        playerMovement.SetSprinting(value.isPressed);
+        noiseMaker.MakeNoise(new NoiseInfo
+        {
+            position = this.transform.position,
+            Radius = 25f,
+            type = NoiseType.Common
+
+        });
+    }
+
+    public void OnUse(InputValue value)
+    {
+        heroineSystem.UseHeroine();
+    }
+
+
+
+    public void OnCrouch(InputValue value)
+    {
+        playerCrouch.ToggleCrouch();
+        noiseMaker.MakeNoise(new NoiseInfo
+        {
+            position = this.transform.position,
+            Radius = 5f,
+            type = NoiseType.Common
+
+        });
+
     }
 
     public void OnInteract(InputValue value)
@@ -52,10 +103,23 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputValue value)
     {
         if (enableMouseControl && playerCamera != null)
-            playerCamera.HandleLook(value.Get<Vector2>()); // pasa input al módulo de la cámara
+            playerCamera.HandleLook(value.Get<Vector2>()); // pasa input al mï¿½dulo de la cï¿½mara
     }
 
-    // ======== Métodos públicos para habilitar módulos ========
+
+    //Da un aviso para que pueda hacer ruido
+    public void OnMakeNoise(InputValue value)
+    {
+        noiseMaker.MakeNoise(new NoiseInfo
+        {
+            position = this.transform.position,
+            Radius = 35f,
+            type = NoiseType.Common
+
+        });
+    }
+
+    // ======== Mï¿½todos pï¿½blicos para habilitar mï¿½dulos ========
     public void EnableMovement(bool enable) => enableMovement = enable;
     public void EnableInteraction(bool enable) => enableInteraction = enable;
     public void EnableMouseControl(bool enable) => enableMouseControl = enable;
