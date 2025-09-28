@@ -1,11 +1,13 @@
 using Game;
+using Sirenix.OdinInspector;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("M�dulos")]
+    [Title("M�dulos")]
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerInteraction playerInteraction;
     [SerializeField] private PlayerCrouch playerCrouch;
@@ -13,11 +15,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private HeroineSystem heroineSystem;
     [SerializeField] private NoiseMaker noiseMaker;
 
-    [Header("Configuraci�n Global")]
+    [Title("Configuracion")]
+    [SerializeField] private float heroineMultiplierSpeed = 3f;
+    [SerializeField] private float heroineDuration = 5f;
+
     public bool enableMovement = true;
     public bool enableInteraction = true;
     public bool enableMouseControl = true;
 
+    private Coroutine heroineCoroutine;
+
+    private void OnEnable()
+    {
+        heroineSystem.OnHeroineConsumed += ApplyHeroineBoost;
+    }
+
+    private void OnDisable()
+    {
+        heroineSystem.OnHeroineConsumed -= ApplyHeroineBoost;
+    }
 
     private void Start()
     {
@@ -45,7 +61,7 @@ public class PlayerController : MonoBehaviour
         if (enableMovement && playerMovement != null)
             playerMovement.SetMoveInput(value.Get<Vector2>());
 
-        if(!playerCrouch)
+        if(!playerCrouch && noiseMaker != null)
         noiseMaker.MakeNoise(new NoiseInfo
         {
             position = this.transform.position,
@@ -65,13 +81,16 @@ public class PlayerController : MonoBehaviour
         }
 
         playerMovement.SetSprinting(value.isPressed);
-        noiseMaker.MakeNoise(new NoiseInfo
+        if(noiseMaker != null)
         {
-            position = this.transform.position,
-            Radius = 25f,
-            type = NoiseType.Common
+            noiseMaker.MakeNoise(new NoiseInfo
+            {
+                position = this.transform.position,
+                Radius = 25f,
+                type = NoiseType.Common
 
-        });
+            });
+        }
     }
 
     public void OnUse(InputValue value)
@@ -84,13 +103,17 @@ public class PlayerController : MonoBehaviour
     public void OnCrouch(InputValue value)
     {
         playerCrouch.ToggleCrouch();
-        noiseMaker.MakeNoise(new NoiseInfo
+        if (noiseMaker != null)
         {
-            position = this.transform.position,
-            Radius = 5f,
-            type = NoiseType.Common
+            noiseMaker.MakeNoise(new NoiseInfo
+            {
+                position = this.transform.position,
+                Radius = 5f,
+                type = NoiseType.Common
 
-        });
+            });
+        }
+       
 
     }
 
@@ -110,13 +133,35 @@ public class PlayerController : MonoBehaviour
     //Da un aviso para que pueda hacer ruido
     public void OnMakeNoise(InputValue value)
     {
-        noiseMaker.MakeNoise(new NoiseInfo
+        if (noiseMaker != null)
         {
-            position = this.transform.position,
-            Radius = 35f,
-            type = NoiseType.Common
+            noiseMaker.MakeNoise(new NoiseInfo
+            {
+                position = this.transform.position,
+                Radius = 35f,
+                type = NoiseType.Common
 
-        });
+            });
+        }
+    }
+
+
+    private void ApplyHeroineBoost()
+    {
+        if (heroineCoroutine != null)
+            StopCoroutine(heroineCoroutine);
+
+        heroineCoroutine = StartCoroutine(HeroineBoostCoroutine());
+    }
+
+    private IEnumerator HeroineBoostCoroutine()
+    {
+        float boostedSpeed = playerMovement.walkSpeed * heroineMultiplierSpeed;
+        playerMovement.SetSpeed(boostedSpeed);
+
+        yield return new WaitForSeconds(heroineDuration);
+
+        playerMovement.SetSpeed(playerMovement.walkSpeed);
     }
 
     // ======== M�todos p�blicos para habilitar m�dulos ========

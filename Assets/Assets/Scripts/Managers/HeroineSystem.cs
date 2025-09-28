@@ -8,9 +8,7 @@ public class HeroineSystem : MonoBehaviour
     [SerializeField] private List<Heroine> heroineList;
     [SerializeField] private float amount = 0;
 
-    [SerializeField] private float corruptionPercentage;
-
-    public event Action OnHeroineUse;
+    public event Action OnHeroineConsumed;
     public event Action OnHeroineRemove;
 
     private void OnEnable()
@@ -34,7 +32,6 @@ public class HeroineSystem : MonoBehaviour
     private void AddAmount()
     {
         amount ++;
-        OnHeroineUse?.Invoke();
         Debug.Log($"Heroíne Collected. Total: {amount}");
 
     }
@@ -54,7 +51,7 @@ public class HeroineSystem : MonoBehaviour
             return;
         }
         RemoveAmount();
-        corruptionPercentage = Mathf.Clamp(corruptionPercentage + 15, 0, 100);
-        print($"You consumed 1 of heroine {corruptionPercentage}%");
+        OnHeroineConsumed?.Invoke();
+        print("Consumed 1 Heroine");
     }
 }

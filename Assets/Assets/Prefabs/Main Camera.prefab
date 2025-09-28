@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 9112242442237318933}
   - component: {fileID: 1419937981107738}
   - component: {fileID: 4995768025455742092}
+  - component: {fileID: 2029642718577896207}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -136,14 +137,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8059343105613624431}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0656674, y: 0.9333688, z: -0.26864696, w: -0.22877797}
+  m_LocalRotation: {x: -0.06566655, y: 0.933368, z: -0.268651, w: -0.22877671}
   m_LocalPosition: {x: -0.19272041, y: 3.687843, z: 5.0883093}
-  m_LocalScale: {x: 0.071623705, y: 0.071623705, z: 0.071623705}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1019318018091092530}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 11.031, y: 375.857, z: -3.652}
+  m_LocalEulerAnglesHint: {x: 32.11, y: 207.551, z: 0.023}
 --- !u!20 &9112242442237318933
 Camera:
   m_ObjectHideFlags: 0
@@ -342,3 +343,17 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!114 &2029642718577896207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059343105613624431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b078b3f806e574689aa7384441f924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBody: {fileID: 0}
+  mouseSensitivity: 5
