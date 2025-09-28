@@ -99,9 +99,9 @@ Material:
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 5
     - _ZWrite: 0
-    - _fresnel: 7.39
+    - _fresnel: 1.36
     m_Colors:
-    - _Color: {r: 0, g: 44.440666, b: 86.41235, a: 1}
+    - _Color: {r: 2.096543, g: 0, b: 0.04390625, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _tilling: {r: 0, g: 0.68, b: 0, a: 0}
