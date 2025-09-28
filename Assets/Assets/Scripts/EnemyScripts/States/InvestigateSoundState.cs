@@ -5,8 +5,10 @@ public class InvestigateSoundState : State
 {
     NPCSenses npcSense;
 
-    public InvestigateSoundState(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player) : base(_npc, _agent, _anim, _player)
+    public InvestigateSoundState(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player) :
+        base(_npc, _agent, _anim, _player)
     {
+        agent.speed = 2.5f;
         name = STATE.INVESTIGATESOUND;
     }
 
@@ -41,6 +43,14 @@ public class InvestigateSoundState : State
                     stage = EVENT.EXIT;
                 }
                    
+            }
+        }
+        else
+        {
+            if (Random.Range(0, 500) < 10)
+            {
+                nextState = new Patrol(npc, agent, anim, player);
+                stage = EVENT.EXIT;
             }
         }
         //base.Update();

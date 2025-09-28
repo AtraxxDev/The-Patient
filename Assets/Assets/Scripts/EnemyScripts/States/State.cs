@@ -18,6 +18,7 @@ public class State
     };
 
     public STATE name;
+    public STATE previousState;
     protected EVENT stage;
     protected GameObject npc;
     protected Animator anim;
@@ -29,15 +30,16 @@ public class State
     float sisDist = 3.0f;
     float visAngle = 45.0f;
     float sisAngle = 120.0f;
-    float attackDist = 5.0f;
+    float attackDist = 3.0f;
 
 
-    public State(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player)
+    public State(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player )
     {
         npc = _npc;
         agent = _agent;
         anim = _anim;
         player = _player;
+     
 
     }
 
@@ -87,6 +89,17 @@ public class State
         float angle = Vector3.Angle(npc.transform.forward, direction);
 
         if (direction.magnitude < sisDist && angle > sisAngle)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool HeardSomething()
+    {
+        NPCSenses enemySenses=npc.GetComponent<NPCSenses>();
+
+        if(enemySenses.NoiseHeard)
         {
             return true;
         }

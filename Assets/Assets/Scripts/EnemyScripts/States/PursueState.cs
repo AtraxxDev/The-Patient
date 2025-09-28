@@ -47,6 +47,7 @@ public class PursueState:State
     public override void Exit()
     {
         //anim.ResetTrigger("isRunning");
+        pursueScream.Stop();
         base.Exit();
     }
 }

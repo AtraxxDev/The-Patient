@@ -11,7 +11,7 @@ public class Patrol : State
         base(_npc, _agent, _anim, _player)
     {
         name = STATE.PATROL;
-        agent.speed = 2;
+        agent.speed = 2f;
         agent.isStopped = false;
     }
 
@@ -51,6 +51,12 @@ public class Patrol : State
                 agent.SetDestination(CheckCheckpoints.Singleton.CheckpointsObjects[currentIndex].transform.position);
             }
             
+        }
+
+        if (HeardSomething())
+        {
+            nextState = new InvestigateSoundState(npc, agent, anim, player);
+            stage = EVENT.EXIT;
         }
 
         if (CanSeePlayer())

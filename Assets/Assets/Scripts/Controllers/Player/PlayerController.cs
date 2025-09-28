@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerCrouch playerCrouch;
     [SerializeField] private PlayerCamera playerCamera;
     [SerializeField] private HeroineSystem heroineSystem;
-
+    [SerializeField] private NoiseMaker noiseMaker;
 
     [Header("Configuraci�n Global")]
     public bool enableMovement = true;
@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
         if (enableMovement && playerMovement != null)
             playerMovement.SetMoveInput(value.Get<Vector2>());
 
+        if(!playerCrouch)
         noiseMaker.MakeNoise(new NoiseInfo
         {
             position = this.transform.position,
@@ -64,6 +65,13 @@ public class PlayerController : MonoBehaviour
         }
 
         playerMovement.SetSprinting(value.isPressed);
+        noiseMaker.MakeNoise(new NoiseInfo
+        {
+            position = this.transform.position,
+            Radius = 25f,
+            type = NoiseType.Common
+
+        });
     }
 
     public void OnUse(InputValue value)
@@ -76,6 +84,14 @@ public class PlayerController : MonoBehaviour
     public void OnCrouch(InputValue value)
     {
         playerCrouch.ToggleCrouch();
+        noiseMaker.MakeNoise(new NoiseInfo
+        {
+            position = this.transform.position,
+            Radius = 5f,
+            type = NoiseType.Common
+
+        });
+
     }
 
     public void OnInteract(InputValue value)
@@ -97,7 +113,7 @@ public class PlayerController : MonoBehaviour
         noiseMaker.MakeNoise(new NoiseInfo
         {
             position = this.transform.position,
-            Radius = 10f,
+            Radius = 35f,
             type = NoiseType.Common
 
         });
