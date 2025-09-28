@@ -5,20 +5,19 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Módulos")]
-    [SerializeField]
-    private PlayerMovement playerMovement;
-    [SerializeField]
-    private PlayerInteraction playerInteraction;
-    [SerializeField]
-    private PlayerCamera playerCamera;
-    [SerializeField]
-    NoiseMaker noiseMaker;
+    [Header("Mï¿½dulos")]
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerInteraction playerInteraction;
+    [SerializeField] private PlayerCrouch playerCrouch;
+    [SerializeField] private PlayerCamera playerCamera;
+    [SerializeField] private HeroineSystem heroineSystem;
 
-    [Header("Configuración Global")]
+
+    [Header("Configuraciï¿½n Global")]
     public bool enableMovement = true;
     public bool enableInteraction = true;
     public bool enableMouseControl = true;
+
 
     private void Start()
     {
@@ -56,6 +55,29 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    public void OnSprint(InputValue value)
+    {
+        // si estï¿½ agachado, no puede sprintar
+        if (playerCrouch != null && playerCrouch.IsCrouching)
+        {
+            return;
+        }
+
+        playerMovement.SetSprinting(value.isPressed);
+    }
+
+    public void OnUse(InputValue value)
+    {
+        heroineSystem.UseHeroine();
+    }
+
+
+
+    public void OnCrouch(InputValue value)
+    {
+        playerCrouch.ToggleCrouch();
+    }
+
     public void OnInteract(InputValue value)
     {
         if (enableInteraction && playerInteraction != null && value.isPressed)
@@ -65,7 +87,7 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputValue value)
     {
         if (enableMouseControl && playerCamera != null)
-            playerCamera.HandleLook(value.Get<Vector2>()); // pasa input al módulo de la cámara
+            playerCamera.HandleLook(value.Get<Vector2>()); // pasa input al mï¿½dulo de la cï¿½mara
     }
 
 
@@ -81,7 +103,7 @@ public class PlayerController : MonoBehaviour
         });
     }
 
-    // ======== Métodos públicos para habilitar módulos ========
+    // ======== Mï¿½todos pï¿½blicos para habilitar mï¿½dulos ========
     public void EnableMovement(bool enable) => enableMovement = enable;
     public void EnableInteraction(bool enable) => enableInteraction = enable;
     public void EnableMouseControl(bool enable) => enableMouseControl = enable;

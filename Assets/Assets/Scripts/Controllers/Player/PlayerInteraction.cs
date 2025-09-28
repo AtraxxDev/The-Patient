@@ -65,7 +65,6 @@ public class PlayerInteraction : MonoBehaviour
         if (currentInteractable != null)
         {
             currentInteractable = null;
-            Debug.Log("No hay objetos interactuables");
         }
     }
 
@@ -79,10 +78,23 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (raycastOrigin == null) return;
 
-        Gizmos.color = Color.green;
         Vector3 start = raycastOrigin.position;
         Vector3 end = start + raycastOrigin.forward * interactionRange;
+
+        // Detectar si hay un interactuable enfrente
+        bool hitInteractable = false;
+        if (Physics.Raycast(start, raycastOrigin.forward, out RaycastHit hit, interactionRange))
+        {
+            if (hit.collider.GetComponent<IInteractable>() != null) 
+            {
+                hitInteractable = true;
+                end = hit.point; // dibuja hasta donde pegó
+            }
+        }
+
+        Gizmos.color = hitInteractable ? Color.red : Color.green;
         Gizmos.DrawLine(start, end);
-        Gizmos.DrawWireSphere(end, 0.05f); // pequeño indicador al final
+        Gizmos.DrawWireSphere(end, 0.05f);
     }
+
 }
