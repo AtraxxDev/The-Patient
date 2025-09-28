@@ -1,3 +1,4 @@
+using Game;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -51,7 +52,10 @@ public class PlayerMovement : MonoBehaviour
         camRight.Normalize();
 
         Vector3 move = camForward * moveInput.y + camRight * moveInput.x;
+        //noiseMaker.MakeNoise(NoiseInfo);
 
         rb.MovePosition(rb.position + move * currentSpeed * Time.fixedDeltaTime);
     }
+
+
 }
