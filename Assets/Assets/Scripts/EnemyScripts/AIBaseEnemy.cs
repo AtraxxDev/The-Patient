@@ -10,8 +10,8 @@ public class AIBaseEnemy : MonoBehaviour
     public Transform player;
     State currentState;
 
-    [SerializeField] AudioClip[] _audioClip; //Clip1 es audio de perseguir, Clip 2 de ataque
-    //[SerializeField] AudioClip attackClip;
+    [SerializeField] AudioClip[] _audioClip; //Clip1 es audio de perseguir, Clip 2 de ataque,Clip 3, CLip 4 de grito al huir
+    [SerializeField] AudioClip[] _stepsClip; //Lista de audios de pasos que se van a estar ciclando
 
     
 
@@ -30,8 +30,17 @@ public class AIBaseEnemy : MonoBehaviour
 
     
 
-    public AudioClip GetAudio(int i)
+    public AudioClip GetScreamAudio(int i)
     {
         return _audioClip[i];
+    }
+
+    public AudioClip[] GetStepsAudioList()
+    {
+        return _stepsClip;
+    }
+    public AudioClip GetStepsAudio(int i)
+    {
+        return _stepsClip[i];
     }
 }

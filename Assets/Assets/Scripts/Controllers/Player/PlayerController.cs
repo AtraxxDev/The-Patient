@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerCamera playerCamera;
     [SerializeField] private HeroineSystem heroineSystem;
     [SerializeField] private NoiseMaker noiseMaker;
+  
 
     [Title("Configuracion")]
     [SerializeField] private float heroineMultiplierSpeed = 3f;
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour
         if (enableMovement && playerMovement != null)
             playerMovement.SetMoveInput(value.Get<Vector2>());
 
-        if(!playerCrouch && noiseMaker != null)
+        if(!playerCrouch.IsCrouching && noiseMaker != null)
         noiseMaker.MakeNoise(new NoiseInfo
         {
             position = this.transform.position,
@@ -69,7 +70,10 @@ public class PlayerController : MonoBehaviour
             type = NoiseType.Common
             
         });
-        
+
+        Vector2 moveInput = value.Get<Vector2>();
+        playerMovement.SetMoving(moveInput.sqrMagnitude>0.01f);
+   
     }
 
     public void OnSprint(InputValue value)

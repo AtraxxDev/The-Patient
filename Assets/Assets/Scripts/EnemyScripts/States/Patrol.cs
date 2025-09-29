@@ -5,7 +5,9 @@ using UnityEngine;
 public class Patrol : State
 {
     int currentIndex = -1;
-
+    AudioSource normalSounds;
+    AudioSource stepsSound;
+    AudioClip attackClip;
 
     public Patrol(GameObject _npc, UnityEngine.AI.NavMeshAgent _agent, Animator _anim, Transform _player) :
         base(_npc, _agent, _anim, _player)
@@ -13,11 +15,25 @@ public class Patrol : State
         name = STATE.PATROL;
         agent.speed = 2f;
         agent.isStopped = false;
+
+        var aSources = _npc.GetComponents<AudioSource>();
+        normalSounds = aSources[0];
+        stepsSound = aSources[1];
+      
+        npc.GetComponent<NPCSenses>();
     }
 
     public override void Enter()
     {
-        npc.GetComponent<NPCSenses>();
+        attackClip = npc.GetComponent<AIBaseEnemy>().GetScreamAudio(3);
+        normalSounds.clip = attackClip;
+        normalSounds.Stop();
+
+        AudioClip[] listofSteps = npc.GetComponent<AIBaseEnemy>().GetStepsAudioList();
+        AudioClip stepsClips = npc.GetComponent<AIBaseEnemy>().GetStepsAudio(Random.Range(0,listofSteps.Length));
+        stepsSound.clip = stepsClips;
+        stepsSound.Play();
+
 
         float lastDistance = Mathf.Infinity;
         for (int i = 0; i < CheckCheckpoints.Singleton.CheckpointsObjects.Count; i++)
@@ -38,9 +54,11 @@ public class Patrol : State
     public override void Update()
     {
         //UpdateHearing();
+       
 
-        if (agent.remainingDistance < 1)
+       if (agent.remainingDistance < 1)
         {
+            stepsSound.Stop();
             if(Random.Range(0, 500) < 10)
             {
                 if (currentIndex >= CheckCheckpoints.Singleton.CheckpointsObjects.Count - 1)
@@ -49,6 +67,7 @@ public class Patrol : State
                     currentIndex++;
 
                 agent.SetDestination(CheckCheckpoints.Singleton.CheckpointsObjects[currentIndex].transform.position);
+                stepsSound.Play();
             }
             
         }
@@ -71,7 +90,12 @@ public class Patrol : State
             stage = EVENT.EXIT;
         }
 
-       
+        if (Random.Range(0, 5000) < 10)
+        {
+            normalSounds.PlayOneShot(attackClip);
+            
+        }
+
 
     }
 
