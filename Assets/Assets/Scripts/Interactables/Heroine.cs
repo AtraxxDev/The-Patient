@@ -8,6 +8,7 @@ public class Heroine : Interactable
     {
         gameObject.SetActive(false);
         OnHeroineCollected?.Invoke();
+        AudioManager.Instance.PlaySFX("Picked");
     }
 
     

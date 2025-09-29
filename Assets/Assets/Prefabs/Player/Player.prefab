@@ -512,11 +512,12 @@ MonoBehaviour:
   _audioClip:
   - {fileID: 8300000, guid: 2d033f8273c0a3e42988b6c4e389ff4f, type: 3}
   _stepsClip:
-  - {fileID: 8300000, guid: e26c68fefa19509499a1309deaf872cc, type: 3}
-  - {fileID: 8300000, guid: f7768e7ca110a0247822ec813fcc515d, type: 3}
-  - {fileID: 8300000, guid: 3e646efce50656c4b8c55eca5d47cb89, type: 3}
-  - {fileID: 8300000, guid: 5977ef025ec8d1946a875d1b7b534de6, type: 3}
-  - {fileID: 8300000, guid: 387d6ffc570445d4cbe312fb2a292c50, type: 3}
+  - {fileID: 8300000, guid: 134b322836dd0d04c91a772805fbb359, type: 3}
+  - {fileID: 8300000, guid: 56cdede4287a92d498e652397724efb8, type: 3}
+  - {fileID: 8300000, guid: 4ad6554652b488b4f8564edd1f4b904b, type: 3}
+  - {fileID: 8300000, guid: c67ab6e7aff4e7e448981f2abccf551f, type: 3}
+  - {fileID: 8300000, guid: 4b8073746cff27d4685721231c563f31, type: 3}
+  - {fileID: 8300000, guid: 0a0f942469fefb946af7e572765507d5, type: 3}
 --- !u!82 &4845609989913916044
 AudioSource:
   m_ObjectHideFlags: 0

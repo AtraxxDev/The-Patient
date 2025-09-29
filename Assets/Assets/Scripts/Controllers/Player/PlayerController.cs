@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerInteraction.Initialize(playerCamera.transform);
+        AudioManager.Instance.PlayMusic("Gameplay");
     }
 
     void Update()
@@ -62,19 +63,21 @@ public class PlayerController : MonoBehaviour
         if (enableMovement && playerMovement != null)
             playerMovement.SetMoveInput(value.Get<Vector2>());
 
-        if(!playerCrouch.IsCrouching && noiseMaker != null)
-        noiseMaker.MakeNoise(new NoiseInfo
+        if (!playerCrouch.IsCrouching && noiseMaker != null)
         {
-            position = this.transform.position,
-            Radius = 15f,
-            type = NoiseType.Common
-            
-        });
+            noiseMaker.MakeNoise(new NoiseInfo
+            {
+                position = this.transform.position,
+                Radius = 15f,
+                type = NoiseType.Common
+            });
+        }
 
+        //  Esto sigue igual, pero ahora sí funciona en bucle
         Vector2 moveInput = value.Get<Vector2>();
-        playerMovement.SetMoving(moveInput.sqrMagnitude>0.01f);
-   
+        playerMovement.SetMoving(moveInput.sqrMagnitude > 0.01f);
     }
+
 
     public void OnSprint(InputValue value)
     {
