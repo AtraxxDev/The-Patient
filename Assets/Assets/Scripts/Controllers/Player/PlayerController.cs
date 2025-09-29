@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerInteraction.Initialize(playerCamera.transform);
-        AudioManager.Instance.PlayMusic("Gameplay");
+       // AudioManager.Instance.PlayMusic("Gameplay");
     }
 
     void Update()

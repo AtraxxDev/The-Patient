@@ -89,8 +89,8 @@ MonoBehaviour:
     supportVFXRayTracing: 0
     supportedRayTracingMode: 3
     lightLoopSettings:
-      cookieAtlasSize: 512
-      cookieFormat: 74
+      cookieAtlasSize: 16384
+      cookieFormat: 48
       cookieAtlasLastValidMip: 0
       cookieTexArraySize: 16
       planarReflectionAtlasSize: 512
@@ -162,9 +162,9 @@ MonoBehaviour:
           m_Id: With3Levels
       perChannelMask: 1
     postProcessSettings:
-      m_LutSize: 32
-      lutFormat: 48
-      bufferFormat: 74
+      m_LutSize: 64
+      lutFormat: 52
+      bufferFormat: 48
     dynamicResolutionSettings:
       enabled: 0
       useMipBias: 0

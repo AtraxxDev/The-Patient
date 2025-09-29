@@ -7,6 +7,7 @@ public class HeroineSystem : MonoBehaviour
 {
     [SerializeField] private List<Heroine> heroineList;
     [SerializeField] private float amount = 0;
+    public float KarmaAmount = 0;
 
     public event Action OnHeroineConsumed;
     public event Action OnHeroineRemove;
@@ -38,6 +39,7 @@ public class HeroineSystem : MonoBehaviour
     private void RemoveAmount()
     {
         amount--;
+        KarmaAmount++;
         OnHeroineRemove?.Invoke();
         Debug.Log($"Heroíne Used. Total: {amount}");
 

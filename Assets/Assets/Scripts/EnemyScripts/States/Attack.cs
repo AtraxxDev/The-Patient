@@ -1,3 +1,4 @@
+using Game;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,12 +6,16 @@ public class Attack : State
 {
     float rotationSpeed = 2.0f;
     AudioSource attackScream;
+    CreateAttack aTTACK;
+
+
     
     public Attack(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player) :
         base(_npc, _agent, _anim, _player)
     {
         name = STATE.ATTACK;
         attackScream = _npc.GetComponent<AudioSource>();
+        aTTACK = _npc.GetComponent<CreateAttack>();
     }
 
     public override void Enter()
@@ -20,6 +25,12 @@ public class Attack : State
         agent.isStopped = true;
         attackScream.clip = attackClip;
         attackScream.Play();
+        aTTACK.MakeAttack(new Game.NoiseInfo
+        {
+            position = npc.transform.position,
+            Radius = 6f,
+            type = NoiseType.Common
+        });
         base.Enter();
     }
 
