@@ -25896,9 +25896,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2965110037285915747, guid: f5fd3a490a6c0e148b18bb3c904d3a07, type: 3}
+      propertyPath: interactionText
+      value: 
+      objectReference: {fileID: 322618727}
     - target: {fileID: 4205287923842333643, guid: f5fd3a490a6c0e148b18bb3c904d3a07, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590248261409373547, guid: f5fd3a490a6c0e148b18bb3c904d3a07, type: 3}
+      propertyPath: m_Volume
+      value: 0.177
       objectReference: {fileID: 0}
     - target: {fileID: 7187189924457276555, guid: f5fd3a490a6c0e148b18bb3c904d3a07, type: 3}
       propertyPath: heroineList.Array.size
@@ -35390,6 +35398,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1036660505}
+  - {fileID: 610703888}
+  - {fileID: 1166520802}
   - {fileID: 2060832894}
   - {fileID: 1506225340}
   - {fileID: 1961180397}

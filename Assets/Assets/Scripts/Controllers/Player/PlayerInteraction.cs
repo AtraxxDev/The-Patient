@@ -1,6 +1,7 @@
 // ====================================
 // PLAYER INTERACTION (Módulo de Interacción)
 // ====================================
+using TMPro;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
@@ -12,9 +13,14 @@ public class PlayerInteraction : MonoBehaviour
     private Transform raycastOrigin;
     private IInteractable currentInteractable;
 
+    [Header("UI")]
+    [SerializeField] private TMP_Text interactionText;
+
     public void Initialize(Transform cameraTransform)
     {
         raycastOrigin = cameraTransform;
+        if (interactionText != null)
+            interactionText.text = "";
     }
 
     public void CheckForInteractables()
@@ -56,8 +62,12 @@ public class PlayerInteraction : MonoBehaviour
 
     void OnInteractableFound(IInteractable interactable)
     {
+        string text = interactable.GetInteractionText();
         // Aquí puedes agregar lógica para mostrar UI, etc.
         Debug.Log($"Objeto interactuable encontrado: {interactable.GetInteractionText()}");
+        if (interactionText != null)
+            interactionText.text = text;
+
     }
 
     void ClearCurrentInteractable()
@@ -65,6 +75,8 @@ public class PlayerInteraction : MonoBehaviour
         if (currentInteractable != null)
         {
             currentInteractable = null;
+            if (interactionText != null)
+                interactionText.text = "";
         }
     }
 

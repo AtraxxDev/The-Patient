@@ -1,5 +1,6 @@
-using Game;
+﻿using Game;
 using UnityEngine;
+using System.Collections;
 using static State;
 
 public class PlayerMovement : MonoBehaviour
@@ -11,14 +12,13 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("PlayerSounds")]
     [SerializeField] private PlayerSounds playerSounds;
-    private float stepCooldown = 0.5f;   // time between steps
-    private float lastStepTime = 0f;
-
 
     private Rigidbody rb;
     private Vector2 moveInput;
     private float currentSpeed;
 
+    private bool isMoving = false;
+    private Coroutine footstepCoroutine;
 
     private void Start()
     {
@@ -42,35 +42,26 @@ public class PlayerMovement : MonoBehaviour
         currentSpeed = speed; // usado por crouch
     }
 
-    public void SetMoving(bool isMoving)
-    {
-        if (isMoving)
-        {
-            // Get how fast the player is actually moving in world space
-            float velocity = rb.linearVelocity.magnitude;
-
-            // Normalize speed ratio between 0 and 1
-            float speedRatio = Mathf.Clamp01(velocity / (walkSpeed * sprintMultiplier));
-
-            // Lerp step cooldown: slower when walking, faster when sprinting
-            stepCooldown = Mathf.Lerp(0.6f, 0.25f, speedRatio);
-
-            if (Time.time >= lastStepTime + stepCooldown)
-            {
-                AudioClip[] listofSteps = playerSounds.GetStepsAudioList();
-                if (listofSteps.Length == 0) return;
-
-                AudioClip stepClip = listofSteps[Random.Range(0, listofSteps.Length)];
-                playerSounds.ReturnPlayerStepsAudio().PlayOneShot(stepClip);
-
-                lastStepTime = Time.time;
-            }
-        }
-    }
-
     public void SetSprinting(bool isSprinting)
     {
         currentSpeed = isSprinting ? walkSpeed * sprintMultiplier : walkSpeed;
+    }
+
+    public void SetMoving(bool moving)
+    {
+        if (isMoving == moving) return; // no hacer nada si no cambia el estado
+
+        isMoving = moving;
+
+        if (isMoving)
+        {
+            footstepCoroutine = StartCoroutine(FootstepRoutine());
+        }
+        else
+        {
+            if (footstepCoroutine != null)
+                StopCoroutine(footstepCoroutine);
+        }
     }
 
     private void Move()
@@ -85,10 +76,30 @@ public class PlayerMovement : MonoBehaviour
         camRight.Normalize();
 
         Vector3 move = camForward * moveInput.y + camRight * moveInput.x;
-        //noiseMaker.MakeNoise(NoiseInfo);
-
         rb.MovePosition(rb.position + move * currentSpeed * Time.fixedDeltaTime);
     }
 
+    private IEnumerator FootstepRoutine()
+    {
+        while (isMoving)
+        {
+            // tiempos fijos
+            float walkStepTime = 0.5f; // cada 0.5s al caminar
+            float sprintStepTime = 0.2f; // cada 0.2s al correr
 
+            bool isSprinting = currentSpeed > walkSpeed + 0.1f;
+            float stepDelay = isSprinting ? sprintStepTime : walkStepTime;
+
+            // reproducir audio
+            AudioClip[] listofSteps = playerSounds.GetStepsAudioList();
+            if (listofSteps.Length > 0)
+            {
+                AudioClip stepClip = listofSteps[Random.Range(0, listofSteps.Length)];
+                playerSounds.ReturnPlayerStepsAudio().PlayOneShot(stepClip);
+            }
+
+            // esperar el tiempo de paso antes de continuar
+            yield return new WaitForSeconds(stepDelay);
+        }
+    }
 }
