@@ -30,7 +30,7 @@ public class State
     float sisDist = 3.0f;
     float visAngle = 45.0f;
     float sisAngle = 120.0f;
-    float attackDist = 5.0f;
+    float attackDist = 3.0f;
 
 
     public State(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player )

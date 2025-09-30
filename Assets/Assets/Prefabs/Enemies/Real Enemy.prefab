@@ -97,6 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8256ed47ccbf0ae40be505f544abea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EntryIFramesTime: 0.75
+  damageDebug: 
+  damageGizmosColor: {r: 1, g: 0.3882353, b: 0.2784314, a: 1}
   EntryExpirationTime: 7
   hearingDebug: NONE
   noisedGizmosColor: {r: 1, g: 0, b: 1, a: 1}
@@ -121,8 +124,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 12
+  MinDistance: 3
+  MaxDistance: 18
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -218,8 +221,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 5
+  MaxDistance: 25
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -269,7 +272,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.69722223
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -306,6 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32da2dd5fd21b014b8eba906274f124a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAmount: 10
+  type: 0
 --- !u!1 &5035366366773123729
 GameObject:
   m_ObjectHideFlags: 0

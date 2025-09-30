@@ -130,6 +130,9 @@ GameObject:
   - component: {fileID: 1520273028110252370}
   - component: {fileID: 3494978232393894286}
   - component: {fileID: 4392472530301685674}
+  - component: {fileID: 4848535875724290444}
+  - component: {fileID: 4649810002906112015}
+  - component: {fileID: 5776687044144278786}
   - component: {fileID: 4845609989913916044}
   - component: {fileID: 5590248261409373547}
   m_Layer: 6
@@ -298,6 +301,7 @@ MonoBehaviour:
   sprintMultiplier: 2
   cameraTransform: {fileID: 3961365047150183249}
   playerSounds: {fileID: 4392472530301685674}
+  playerCrouch: {fileID: 0}
 --- !u!114 &2965110037285915747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +318,7 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 8
+  interactionText: {fileID: 0}
 --- !u!114 &5079789957525457066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +355,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   amount: 0
+  KarmaAmount: 0
 --- !u!114 &6367514865948325501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,6 +524,50 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c67ab6e7aff4e7e448981f2abccf551f, type: 3}
   - {fileID: 8300000, guid: 4b8073746cff27d4685721231c563f31, type: 3}
   - {fileID: 8300000, guid: 0a0f942469fefb946af7e572765507d5, type: 3}
+--- !u!114 &4848535875724290444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4205287923842333643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32da2dd5fd21b014b8eba906274f124a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 10
+  type: 0
+--- !u!114 &4649810002906112015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4205287923842333643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8256ed47ccbf0ae40be505f544abea90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntryIFramesTime: 1.5
+  damageDebug: 
+  damageGizmosColor: {r: 1, g: 0.3882353, b: 0.2784314, a: 1}
+  EntryExpirationTime: 1.5
+  hearingDebug: 
+  noisedGizmosColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!114 &5776687044144278786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4205287923842333643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19eb55415424fd418887122553ca93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &4845609989913916044
 AudioSource:
   m_ObjectHideFlags: 0
@@ -531,7 +581,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.565
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -628,7 +678,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.532
   m_Pitch: 1
   Loop: 0
   Mute: 0

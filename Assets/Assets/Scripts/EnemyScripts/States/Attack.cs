@@ -41,7 +41,7 @@ public class Attack : State
         direction.y = 0;
 
         npc.transform.rotation = Quaternion.Slerp(npc.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * rotationSpeed);
-        if (Random.Range(0, 500) < 10)
+        if (Random.Range(0, 100) < 10)
         {
             attackMaker.Debuggin("Te ataque");
             attackMaker.MakeAttack(new AttackInfo
