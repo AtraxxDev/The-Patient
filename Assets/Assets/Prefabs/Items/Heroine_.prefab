@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e65a2dd79fbbfc4e9c406f9d0460889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionText: Press E to Iinteract
+  interactionText: Press E to Pick up the Heroine
 --- !u!65 &748392281472667160
 BoxCollider:
   m_ObjectHideFlags: 0

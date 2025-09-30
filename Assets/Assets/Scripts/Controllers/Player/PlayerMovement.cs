@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isMoving = false;
     private Coroutine footstepCoroutine;
+    [SerializeField] private PlayerCrouch playerCrouch;
 
     private void Start()
     {
@@ -83,6 +84,12 @@ public class PlayerMovement : MonoBehaviour
     {
         while (isMoving)
         {
+            if (playerCrouch != null && playerCrouch.IsCrouching)
+            {
+                yield return null; // esperar siguiente frame
+                continue;
+            }
+
             // tiempos fijos
             float walkStepTime = 0.5f; // cada 0.5s al caminar
             float sprintStepTime = 0.2f; // cada 0.2s al correr
