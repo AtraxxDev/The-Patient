@@ -14,6 +14,7 @@ namespace Game
         void Awake()
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
        

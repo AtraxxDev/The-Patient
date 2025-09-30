@@ -11,20 +11,24 @@ public sealed class CheckCheckpoints
     public List<GameObject> CheckpointsObjects { get { return _checkpointsObjects; } }
     public GameObject GetSafeZone { get { return _safeZone; } }
 
+    
+
     public static CheckCheckpoints Singleton
     {
         get
         {
             if (_instance == null)
-            {
                 _instance = new CheckCheckpoints();
-                _instance._checkpointsObjects.AddRange(GameObject.FindGameObjectsWithTag("Checkpoint"));
-                _instance._safeZone = GameObject.FindGameObjectWithTag("Safe");
 
-                //Esto lo ordena en la lista por el nombre alfabéticos
-                _instance._checkpointsObjects = _instance._checkpointsObjects.OrderBy(waypoint => waypoint.name).ToList();
-            }
+            // Refresh every time we access it (so new scene reloads work)
+            _instance._checkpointsObjects = GameObject.FindGameObjectsWithTag("Checkpoint")
+                .OrderBy(waypoint => waypoint.name)
+                .ToList();
+
+            _instance._safeZone = GameObject.FindGameObjectWithTag("Safe");
+
             return _instance;
+
         }
     }
 }

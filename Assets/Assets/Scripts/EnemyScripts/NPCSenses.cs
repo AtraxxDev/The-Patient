@@ -1,11 +1,28 @@
 using Game;
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NPCSenses : MonoBehaviour,INoiseListener
+public class NPCSenses : MonoBehaviour,INoiseListener,IAttackListener
 {
+    [Header("DamageSense")]
+    public bool DamageFelt { get; private set; } = false;
+
+    public Vector3 DamagePosition { get; private set; }
+    public AttackType DamageType { get; private set; } = AttackType.Common;
+
+    public float DamageTime { get; private set; } = 0f;
+
+    public float TimeSinceDamageFelt => Time.time - DamageTime;
+    public float EntryIFramesTime = 0.75f;
+
+    [Header("Damage")]
+    [SerializeField, Multiline] string damageDebug = "";
+    [SerializeField] Color damageGizmosColor = Color.tomato;
+
+    [Header("HearingSenses")]
     public bool NoiseHeard { get; private set; } = false;
 
     public Vector3 NoisePosition { get; private set; }
@@ -28,6 +45,7 @@ public class NPCSenses : MonoBehaviour,INoiseListener
     private void Update()
     {
         UpdateHearing();
+        UpdateDamage();
     }
     public void OnNoiseHeard(NoiseInfo noise)
     {
@@ -49,14 +67,45 @@ public class NPCSenses : MonoBehaviour,INoiseListener
         }
     }
 
+    public void OnAttacked(AttackInfo attack)
+    {
+        if (attack.owner == gameObject)
+        {
+            return;
+        }
+        DamageFelt = true;
+        DamageTime = Time.time;
+        DamageType = attack.type;
+
+       var playerDeath=GetComponent<PlayerDeath>();
+        {
+            playerDeath.YouAreDead();
+        }
+
+        if (NavMesh.SamplePosition(attack.position, out NavMeshHit hit, 4f, NavMesh.AllAreas))
+        {
+            NoisePosition = hit.position;
+        }
+        else
+        {
+            NoisePosition = attack.position;
+        }
+    }
+
     public void ForgetNoise()
     {
         NoiseHeard = false;
     }
 
+    public void ForgetDamage()
+    {
+        DamageFelt = false;
+    }
+
     private void OnDrawGizmosSelected()
     {
         DrawNoiseGizmos();
+        DrawAttackGizmos();
     }
 
     void DrawNoiseGizmos()
@@ -68,6 +117,34 @@ public class NPCSenses : MonoBehaviour,INoiseListener
         Gizmos.DrawSphere(NoisePosition, 0.2f);
 
 
+    }
+
+    void DrawAttackGizmos()
+    {
+        if (DamageFelt == false)
+        {
+            return;
+        }
+
+        Gizmos.color = noisedGizmosColor;
+        Gizmos.DrawSphere(DamagePosition, 0.2f);
+    }
+
+    public void UpdateDamage()
+    {
+        if(DamageFelt == false)
+        {
+            damageDebug = "none";
+            return;
+        }
+
+        damageDebug=$"Damage felt auch {Mathf.RoundToInt(TimeSinceDamageFelt)} s ago.\n\r";
+        damageDebug += $" Type={DamageType}";
+
+        if (TimeSinceDamageFelt >= EntryIFramesTime)
+        {
+            ForgetDamage();
+        }
     }
 
     void UpdateHearing()
