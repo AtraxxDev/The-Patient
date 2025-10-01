@@ -13,6 +13,7 @@ public class NPCSenses : MonoBehaviour,INoiseListener,IAttackListener
     public Vector3 DamagePosition { get; private set; }
     public AttackType DamageType { get; private set; } = AttackType.Common;
 
+    public float DamageAmount { get; private set; } = 40f;
     public float DamageTime { get; private set; } = 0f;
 
     public float TimeSinceDamageFelt => Time.time - DamageTime;
@@ -73,14 +74,24 @@ public class NPCSenses : MonoBehaviour,INoiseListener,IAttackListener
         {
             return;
         }
+
+        var HealthNPC = GetComponent<HealthNPC>();
+        {
+            if (!DamageFelt)
+                HealthNPC.TakeDamage(DamageAmount);
+        }
         DamageFelt = true;
         DamageTime = Time.time;
         DamageType = attack.type;
+        DamageAmount = attack.amount;
 
+        /*
        var playerDeath=GetComponent<PlayerDeath>();
         {
             playerDeath.YouAreDead();
-        }
+        }*/
+
+       
 
         if (NavMesh.SamplePosition(attack.position, out NavMeshHit hit, 4f, NavMesh.AllAreas))
         {
